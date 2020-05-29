@@ -2,7 +2,7 @@
 #						RUBY TRACKER                  #
 #       A script to track objects in a video          #
 #######################################################
-# ritten by Paul Baskin and Paula Florez 
+# Paul Baskin
 # University of Utah 
 
 
