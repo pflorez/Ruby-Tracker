@@ -1,10 +1,19 @@
+#######################################################
+#                                                     #
+#                   RUBY TRACKER                      #
+#       A script to track objects in a video          #
+#######################################################
+# Robert Paul Baskin
+# University of Utah 
+
+
 # Adapted for research use from Adrian Rosebrock, OpenCV Object Track Object Movement, PyImageSearch,
 # https://www.pyimagesearch.com/2015/09/21/opencv-track-object-movement/
 # by Robert Paul Baskin at the Univeristy of Utah
 
 # USAGE
-# python videoflow.py --video video_to_scan.mp4
-# python videoflow.py
+# python ruby_tracker.py --video video_to_scan.mp4
+# python ruby_tracker.py
 
 # import the necessary packages
 from collections import deque
