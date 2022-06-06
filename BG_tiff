@@ -1,0 +1,54 @@
+import cv2
+import numpy as np
+import sys
+
+cap = cv2.VideoCapture('FH2_MO3140.mp4')
+fps = int(cap.get(5))
+print("fps =", fps)
+num_frames = cap.get(7)
+print("num of frames = ", num_frames)
+f_width = int(cap.get(3))
+f_height = int(cap.get(4))
+f_size = (f_width, f_height)
+print('size =', f_size)
+fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+out = cv2.VideoWriter("FH1_40_blank.avi", fourcc, fps, f_size, isColor= False)
+fgbg = cv2.createBackgroundSubtractorKNN(history=10, dist2Threshold=8000.0, detectShadows=False)
+
+
+while cap.isOpened():
+
+    ret, frame = cap.read()
+    if frame is None:
+        break
+
+    fgmask = fgbg.apply(frame)
+
+    cv2.imshow('fgmask', fgmask)
+    cv2.imshow('frame', frame)
+    out.write(fgmask)
+    if cv2.waitKey(1) == ord('q'):
+        break
+out.release()
+cap.release()
+cv2.destroyAllWindows()
+print('Your video is processed check your folder')
+
+#####KNN parameters###
+#history is the number of frames used to build the statistic model of the background. The smaller the value is, the faster changes in the background will be taken into account by the model and thus be considered as background. And vice versa.
+#dist2Threshold is a threshold to define whether a pixel is different from the background or not. The smaller the value is, the more sensitive movement detection is. And vice versa.
+#detectShadows : If set to true, shadows will be displayed in gray on the generated mask. (Example bellow)
+
+#for visualization of the video
+#while cap.isOpened():
+#    ret, frame = cap.read()
+    # if frame is read correctly ret is True
+#    if not ret:
+#        print("Can't receive frame (stream end?). Exiting ...")
+#       break
+#    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+#    cv2.imshow('frame', gray)
+#    if cv2.waitKey(1) == ord('q'):
+#        break
+#cap.release()
+#cv2.destroyAllWindows()
